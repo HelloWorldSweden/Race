@@ -12,7 +12,7 @@ public class GameController : MonoBehaviour
 
     private GameObject obstaclesParent;
     private float halvGroundSize;
-    private BaseControll playerController;
+    private Movement playerController;
 
     private void Awake()
     {
@@ -23,7 +23,7 @@ public class GameController : MonoBehaviour
     void Start()
     {
         halvGroundSize = GameObject.Find("Environment").GetComponent<Environment>().halfLength; //104.5
-        playerController = GameObject.FindGameObjectWithTag("Player").GetComponent<BaseControll>();
+        playerController = GameObject.FindGameObjectWithTag("Player").GetComponent<Movement>();
 
         StartCoroutine(DelayForObstacles());
 
@@ -52,7 +52,7 @@ public class GameController : MonoBehaviour
 
     IEnumerator DelayForObstacles()
     {
-        float timer = Random.Range(minDelay, maxDelay) / playerController.speedForward; //Depends on how fast player is going.
+        float timer = Random.Range(minDelay, maxDelay) / playerController.forwardSpeed; //Depends on how fast player is going.
         yield return new WaitForSeconds(timer);
 
         CreateObstacles(playerController.gameObject.transform.position.z + halvGroundSize); //Has offset.
